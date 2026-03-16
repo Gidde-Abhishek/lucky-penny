@@ -10,6 +10,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { stdin } from 'process';
 
+const LUCKY_PENNY_MEM_PORT = 37778;
 const SUPPRESS = JSON.stringify({ continue: true, suppressOutput: true });
 
 function readConfig(projectPath) {
@@ -46,9 +47,8 @@ async function run(input) {
   // If memory is enabled, delegate to the claude-mem context hook
   if (config?.memory?.enabled && !config?.memory?.useExternalClaudeMem) {
     try {
-      const port = config.memory.port || 37778;
       const projectName = cwd.split('/').pop() || 'unknown-project';
-      const url = `http://127.0.0.1:${port}/api/context/inject?project=${encodeURIComponent(projectName)}`;
+      const url = `http://127.0.0.1:${LUCKY_PENNY_MEM_PORT}/api/context/inject?project=${encodeURIComponent(projectName)}`;
       const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
       if (res.ok) {
         const context = await res.text();

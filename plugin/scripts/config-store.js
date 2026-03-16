@@ -7,14 +7,14 @@ const CONFIG_DIR = '.lucky-penny';
 const CONFIG_FILE = 'config.json';
 
 /**
- * Default configuration schema.
+ * Default configuration schema (v1.1.0).
  */
 function getDefaultConfig() {
   return {
-    version: '1.0.0',
+    version: '1.1.0',
+    experienceLevel: 'beginner',
     memory: {
       enabled: false,
-      port: 37778,
       useExternalClaudeMem: false,
     },
     hooks: {
@@ -24,13 +24,50 @@ function getDefaultConfig() {
       sessionSummaries: false,
     },
     template: {
-      base: 'base',
       language: 'unknown',
       framework: 'none',
-      applied: null,
+      appliedAt: null,
     },
-    experienceLevel: 'beginner',
+    setup: {
+      completedSteps: [],
+      completedAt: null,
+      wizardVersion: '2.0',
+    },
   };
+}
+
+/**
+ * Migrate config from older versions to current.
+ */
+function migrateConfig(config) {
+  if (!config || config.version === '1.1.0') return config;
+
+  if (config.version === '1.0.0') {
+    // Remove dead fields
+    if (config.template) {
+      delete config.template.base;
+      if ('applied' in config.template) {
+        config.template.appliedAt = config.template.applied;
+        delete config.template.applied;
+      }
+    }
+    if (config.memory) {
+      delete config.memory.port;
+    }
+
+    // Add setup tracking
+    if (!config.setup) {
+      config.setup = {
+        completedSteps: ['detection', 'experience', 'template', 'memory', 'apply'],
+        completedAt: config.template?.appliedAt || null,
+        wizardVersion: '1.0',
+      };
+    }
+
+    config.version = '1.1.0';
+  }
+
+  return config;
 }
 
 /**
@@ -50,7 +87,8 @@ export function readConfig(projectPath) {
     return getDefaultConfig();
   }
   try {
-    return JSON.parse(readFileSync(configPath, 'utf8'));
+    const config = JSON.parse(readFileSync(configPath, 'utf8'));
+    return migrateConfig(config);
   } catch {
     return getDefaultConfig();
   }

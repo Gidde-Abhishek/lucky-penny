@@ -10,6 +10,7 @@ import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { stdin } from 'process';
 
+const LUCKY_PENNY_MEM_PORT = 37778;
 const SUPPRESS = JSON.stringify({ continue: true, suppressOutput: true });
 
 function readConfig(projectPath) {
@@ -36,10 +37,8 @@ async function run(input) {
     return;
   }
 
-  const port = config.memory.port || 37778;
-
   try {
-    await fetch(`http://127.0.0.1:${port}/api/sessions/observations`, {
+    await fetch(`http://127.0.0.1:${LUCKY_PENNY_MEM_PORT}/api/sessions/observations`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

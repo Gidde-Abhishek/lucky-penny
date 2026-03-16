@@ -1,11 +1,16 @@
 {
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "permissions": {
     "deny": [
       "Bash(rm -rf:*)",
       "Bash(drop database:*)",
       "Bash(drop table:*)",
-      "Bash(curl * | bash:*)"
+      "Bash(curl * | bash:*)",
+      "Bash(chmod 777:*)",
+      "Bash(> /dev/sda:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push origin main:*)",
+      "Bash(git push origin master:*)"
     ]
   }
 }

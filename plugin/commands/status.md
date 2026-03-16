@@ -15,13 +15,15 @@ Show the current Lucky Penny plugin configuration status.
 3. Present a clean summary:
 
    **Lucky Penny Status**
-   - CLAUDE.md: [exists/missing] (template: [language]/[framework], applied: [date])
+   - Config version: [version]
+   - CLAUDE.md: [exists/missing] (template: [language]/[framework], applied: [appliedAt date])
    - Experience level: [beginner/experienced/team]
    - Memory system: [enabled/disabled]
    - Hooks:
-     - Session start context: [on/off]
-     - CLAUDE.md check: [on/off]
-     - Memory tracking: [on/off]
-     - Session summaries: [on/off]
+     - Session start context: [on/off] — loads project context on startup
+     - CLAUDE.md check: [on/off] — warns if CLAUDE.md is missing
+     - Memory tracking: [on/off] — records sessions for cross-session recall
+     - Session summaries: [on/off] — summarizes sessions on end
+   - Last setup: [setup.completedAt] (wizard v[setup.wizardVersion])
 
 4. If no `.lucky-penny/config.json` exists, inform the user they need to run `/setup` first.

@@ -12,9 +12,10 @@ Reconfigure the Lucky Penny plugin settings for this project.
 
 2. Present the current state to the user:
    - Experience level
-   - CLAUDE.md template (language/framework) and when it was applied
+   - CLAUDE.md template (language/framework) and when it was applied (`template.appliedAt`)
    - Memory system: enabled/disabled
-   - Active hooks
+   - Active hooks (with brief description of what each one does)
+   - Setup info: when setup was last run (`setup.completedAt`), wizard version
 
 3. Ask what the user wants to change:
    - **Experience level** — beginner / experienced / team

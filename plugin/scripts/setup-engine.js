@@ -72,25 +72,28 @@ function runSetup(prefs) {
 
   // 3. Write Lucky Penny config
   const config = {
-    version: '1.0.0',
+    version: '1.1.0',
+    experienceLevel: prefs.experienceLevel || 'beginner',
     memory: {
       enabled: prefs.memory?.enabled || false,
-      port: 37778,
       useExternalClaudeMem: prefs.memory?.useExternalClaudeMem || false,
     },
     hooks: {
-      sessionStartContext: true,
-      claudeMdCheck: true,
-      memoryTracking: prefs.memory?.enabled || false,
-      sessionSummaries: prefs.memory?.enabled || false,
+      sessionStartContext: prefs.hooks?.sessionStartContext ?? true,
+      claudeMdCheck: prefs.hooks?.claudeMdCheck ?? true,
+      memoryTracking: prefs.hooks?.memoryTracking ?? (prefs.memory?.enabled || false),
+      sessionSummaries: prefs.hooks?.sessionSummaries ?? (prefs.memory?.enabled || false),
     },
     template: {
-      base: 'base',
       language: templatePrefs.language,
       framework: templatePrefs.framework,
-      applied: new Date().toISOString(),
+      appliedAt: new Date().toISOString(),
     },
-    experienceLevel: prefs.experienceLevel || 'beginner',
+    setup: {
+      completedSteps: prefs.completedSteps || ['detection', 'experience', 'template', 'hooks', 'memory', 'apply'],
+      completedAt: new Date().toISOString(),
+      wizardVersion: '2.0',
+    },
   };
 
   writeConfig(projectPath, config);
