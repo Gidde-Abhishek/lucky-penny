@@ -1,0 +1,11 @@
+{
+  "effortLevel": "high",
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(drop database:*)",
+      "Bash(drop table:*)",
+      "Bash(curl * | bash:*)"
+    ]
+  }
+}

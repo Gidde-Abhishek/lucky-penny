@@ -1,0 +1,21 @@
+{
+  "name": "lucky-penny",
+  "version": "1.0.0",
+  "description": "One-click best practices setup for Claude Code — CLAUDE.md templates, smart settings, memory system, and productivity hooks",
+  "author": {
+    "name": "Abhishek Gidde",
+    "url": "https://github.com/abhishekgidde"
+  },
+  "repository": "https://github.com/abhishekgidde/lucky-penny",
+  "license": "MIT",
+  "keywords": [
+    "setup",
+    "best-practices",
+    "CLAUDE.md",
+    "memory",
+    "hooks",
+    "productivity",
+    "onboarding",
+    "templates"
+  ]
+}

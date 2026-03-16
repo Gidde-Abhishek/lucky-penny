@@ -1,0 +1,10 @@
+{
+  "effortLevel": "medium",
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(drop database:*)",
+      "Bash(drop table:*)"
+    ]
+  }
+}
